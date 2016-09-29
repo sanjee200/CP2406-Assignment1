@@ -1,21 +1,22 @@
 /**
  * Created by Sanjeewa on 26/09/2016.
+ * Mineral Super Trumps
  */
 
 public class MineralSupertrumps
 {
 
-    public static void main(String[] args)
+    public static void main( String[] args )
     {
 
-        while (true)
+        while ( true )
         {
             // Display the main menu
 /*
 
             if ( !MyGame.DisplayMainMenu() )
             {
-                break;
+                break ;
             }
 
             // continue with a new game
@@ -26,7 +27,7 @@ public class MineralSupertrumps
 */
 
             // Initialise the Card Pack
-            if ( !MyGame.readCardsDetails() )
+            if ( !MyGame.readCardsDetails(true) )
             {
                 break ;
             }
@@ -42,7 +43,7 @@ public class MineralSupertrumps
             // end
             // display the won players order
 
-            System.out.println( ", Done------------------" ) ;
+            System.out.println( "-------------Done (With No Errors)------------------" ) ;
             break ;
         }
     }
