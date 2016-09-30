@@ -16,7 +16,7 @@ public class MyCommon
 
         while ( true )
         {
-            System.out.print( pMessage + " ( Empty to exit ) ==> " ) ;
+            System.out.print( pMessage + "\n( Empty to exit ) ==> " ) ;
             myInput = inputDevice.nextLine() ;
             if (!myInput.isEmpty())
             {
@@ -39,7 +39,7 @@ public class MyCommon
         while ( true )
         {
             System.out.print( pMessage
-                + " ( Integer between "
+                + "\n( Integer between "
                 + pMinimum + " and " + pMaximum
                 + ", 0 to exit ) ==> "
             ) ;

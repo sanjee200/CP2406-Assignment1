@@ -15,17 +15,20 @@ import java.util.ArrayList;
  *
  */
 
-public class MyInitial
+public class MyConfig
 {
     public  static String myName = "" ;                 // Name of the physical player
-    public  static int    myNumberOfPlayers = 0 ;       // Number of computer players
+    public  static int    myNumberOfPlayers = 3 ;       // Number of computer players
 
     public  static final int NUMBER_OF_CARDS = 60 ;     // Number of cards in the pack
     public  static MyCard[] myCardsPackMain = new MyCard[ NUMBER_OF_CARDS + 1  ] ;  // Main Card Pack
 
-    public  static ArrayList<Integer> myCardsPackHand = new ArrayList<Integer>() ;
+    public  static ArrayList<Integer> myCardsPackDeck = new ArrayList<Integer>() ;  // Main Dynamic Deck
+
+    public  static final int INITIAL_DEAL= 3 ;          // Number of cards to deal initially
 
 
+    // Constants
     private static final int    NUMBER_OF_PLAYERS_MINIMUM = 3 ;
     private static final int    NUMBER_OF_PLAYERS_MAXIMUM = 5 ;
     private static final String XML_FILE = "MstCards_151021.xml" ; //"MstCards_151021.xml" ;
@@ -72,7 +75,7 @@ public class MyInitial
     {
         boolean isFileRead = false ;
         String myKey, myString ;
-        myCardsPackMain[0] = new MyCard() ;
+        myCardsPackMain[0] = new MyCard() ;     // Pack starts from 1, leave 0 empty
 
         try
         {
@@ -151,7 +154,7 @@ public class MyInitial
             {
                 for (int i=0; i <= NUMBER_OF_CARDS; i++ )
                 {
-                    myCardsPackMain[i].display();
+                    myCardsPackMain[i].displayAll();
                     System.out.println("-----------------\n");
                 }
             }
@@ -166,4 +169,11 @@ public class MyInitial
     }
 
 
+    public static void initialiseCardPackDeck()
+    {
+        for (int i=0; i<NUMBER_OF_CARDS; i++)
+        {
+            myCardsPackDeck.add(i+1);
+        }
+    }
 }

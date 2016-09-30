@@ -15,17 +15,21 @@ public class MineralSupertrumps
 
         while ( true )
         {
+/*
             // Display the main menu
-            if ( !MyInitial.DisplayMainMenu() )
+            if ( !MyConfig.DisplayMainMenu() )
             {
                 break ;
             }
+*/
 
+/*
             // Get Initial Information
-            if ( !MyInitial.GetInitialInformation() )
+            if ( !MyConfig.GetInitialInformation() )
             {
                 break ;
             }
+*/
 
             // Start a new game
             if ( !MyGame.newGame() )
@@ -35,9 +39,9 @@ public class MineralSupertrumps
             }
 
             // end
-            // display the players won in order
+            // displayAllCardNumbers the players won in order
 
-            System.out.println(MyInitial.myName);
+            System.out.println(MyConfig.myName);
             System.out.println( "-------------Done (With No Errors)------------------" ) ;
             break ;
         }
