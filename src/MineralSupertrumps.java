@@ -1,48 +1,43 @@
 /**
  * Created by Sanjeewa on 26/09/2016.
- * Mineral Super Trumps
+ *
+ * Mineral Super Trumps - Main Program
  */
 
 public class MineralSupertrumps
 {
 
+
+
     public static void main( String[] args )
     {
+
 
         while ( true )
         {
             // Display the main menu
-/*
-
-            if ( !MyGame.DisplayMainMenu() )
+            if ( !MyInitial.DisplayMainMenu() )
             {
                 break ;
             }
 
-            // continue with a new game
-            if ( !MyGame.GetInitialInformation() )
-            {
-                break ;
-            }
-*/
-
-            // Initialise the Card Pack
-            if ( !MyGame.readCardsDetails(true) )
+            // Get Initial Information
+            if ( !MyInitial.GetInitialInformation() )
             {
                 break ;
             }
 
-            // MyGame.readStaff();
+            // Start a new game
+            if ( !MyGame.newGame() )
+            {
+                break ;
 
-            // Shuffle the cards
-            // Deal the cards 8 each
-
-            // player plays a card
-            // if my chance, display the cards, input the selection
+            }
 
             // end
-            // display the won players order
+            // display the players won in order
 
+            System.out.println(MyInitial.myName);
             System.out.println( "-------------Done (With No Errors)------------------" ) ;
             break ;
         }

@@ -2,10 +2,11 @@ import java.util.Scanner;
 
 /**
  * Created by Sanjeewa on 26/09/2016.
+ *
  * All the common methods used by all the classes
  */
 
-public class MyCommonClass
+public class MyCommon
 {
 
     public static String inputString( String pMessage )
@@ -82,5 +83,37 @@ public class MyCommonClass
         }
         return ( myInput == 'Y' || myInput == 'y' ) ;
     }
+
+
+    // Search for a character and returns the rest
+    public static String findRest( String pString, String pFindChar )
+    {
+        int myFound = -1 ;
+        String myRest ;
+
+        for (int i=0; i<pFindChar.length(); i++)
+        {
+            myFound = pString.indexOf( pFindChar.charAt(i) ) ;
+            if ( myFound >= 0 )
+            {
+                break ;
+            }
+        }
+        myRest = pString.substring( myFound + 1 ) ;
+        return ( myRest ) ;
+    }
+
+    /*
+    convert string to integer
+        Integer.parseInt( myString )
+        Integer.valueOf( myString )
+
+    convert string to double
+        Double.parseDouble(numberAsString);
+        Double.valueOf(numberAsString);
+        Double doubleObject = new Double(numberAsString);
+        DecimalFormat decimalFormat = new DecimalFormat("#");
+
+     */
 
 }
