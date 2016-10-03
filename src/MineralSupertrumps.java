@@ -31,8 +31,15 @@ public class MineralSupertrumps
             }
 */
 
+            // Initialise the Main Card Pack from XML file
+            if ( !MyConfig.readCardsDetails( false ) )
+            {
+                break ;
+            }
+
+
             // Start a new game
-            if ( !MyGame.newGame() )
+            if ( !MyGame.gameStart() )
             {
                 break ;
 

@@ -103,6 +103,21 @@ public class MyCommon
         return ( myRest ) ;
     }
 
+    // Search for an integer
+    public static int findInteger( int[] pArray, int pValue )
+    {
+        int returnValue = -1 ;
+        for (int i=0; i< pArray.length; i++)
+        {
+            if ( pArray[i] == pValue )
+            {
+                returnValue = i ;
+                break ;
+            }
+        }
+        return ( returnValue ) ;
+    }
+
     /*
     convert string to integer
         Integer.parseInt( myString )

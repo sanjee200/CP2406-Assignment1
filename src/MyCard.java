@@ -2,6 +2,7 @@
  * Created by Sanjeewa on 27/09/2016.
  *
  * Card Details
+ *      myCardsPackMain[]
  */
 
 public class MyCard
@@ -33,34 +34,6 @@ public class MyCard
         , "Crustal Abundance"
         , "Economic Value"
     } ;
-
-    public String getCategoryString(int pCategoryNumber)
-    {
-        String myString = "" ;
-        switch (pCategoryNumber)
-        {
-            case 1 :
-                myString = Double.toString( hardnessDouble ) ;
-                break ;
-            case 2 :
-                myString = Double.toString( specificGravityDouble ) ;
-                break ;
-            case 3 :
-                myString = cleavage ;
-                break ;
-            case 4 :
-                myString = crustalAbundance ;
-                break ;
-            case 5 :
-                myString = economicValue ;
-                break ;
-            default :
-                break ;
-        }
-
-        return myString ;
-    }
-
 
 
     public void set(String pKey, String pString )
@@ -118,9 +91,11 @@ public class MyCard
         System.out.println( "Crustal Abundance\t: "  + crustalAbundance ) ;
         System.out.println( "Economic Value\t\t: "   + economicValue ) ;
         System.out.println( "Card Type\t\t\t: "      + cardType ) ;
-        System.out.println( "Sub Title \t\t\t: "     + subTitle ) ;
+        if ( subTitle != null)
+        {
+            System.out.println( "Sub Title \t\t\t: "     + subTitle ) ;
+        }
         System.out.println( "---------------------" ) ;
-        System.out.println( "" );
     }
 
     public void displayCategory( int pCategoryNumber )
@@ -129,7 +104,68 @@ public class MyCard
         System.out.println( "Title     : " + title ) ;
         System.out.println( "Category  : " + myCategory[ pCategoryNumber ] ) ;
         System.out.println( "Top Value : " + getCategoryString( pCategoryNumber ) ) ;
-        System.out.println( "" );
+    }
+
+    public double getCategoryTopValue( int pCategoryNumber )
+    {
+        double myTopValue = 0.0 ;
+        switch (pCategoryNumber)
+        {
+            case 1 :    // hardness
+                myTopValue = hardnessDouble ;
+                break ;
+            case 2 :
+                myTopValue = specificGravityDouble ;
+                break ;
+            default :
+                break ;
+        }
+        return myTopValue ;
+    }
+
+    public String getCategoryString( int pCategoryNumber )
+    {
+        String myString = "" ;
+        switch (pCategoryNumber)
+        {
+            case 1 :
+                myString = Double.toString( hardnessDouble ) ;
+                break ;
+            case 2 :
+                myString = Double.toString( specificGravityDouble ) ;
+                break ;
+            case 3 :
+                myString = cleavage ;
+                break ;
+            case 4 :
+                myString = crustalAbundance ;
+                break ;
+            case 5 :
+                myString = economicValue ;
+                break ;
+            default :
+                break ;
+        }
+
+        return myString ;
+    }
+
+
+    public boolean isCategoryHigher( int pCategoryNumber, double pCurrentValue  )
+    {
+        boolean myFound = false ;
+        switch ( pCategoryNumber )
+        {
+            case 1 :    // hardness
+                myFound = hardnessDouble > pCurrentValue ;
+                break ;
+            case 2 :
+                myFound = specificGravityDouble > pCurrentValue ;
+                break ;
+            default :
+                break ;
+        }
+        return ( myFound ) ;
     }
 
 
