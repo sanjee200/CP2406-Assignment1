@@ -118,6 +118,22 @@ public class MyCommon
         return ( returnValue ) ;
     }
 
+
+    // Search for an integer
+    public static int findString( String[] pArray, String pValue )
+    {
+        int returnValue = -1 ;
+        for (int i=0; i< pArray.length; i++)
+        {
+            if ( pArray[i].equals( pValue ) ) ;
+            {
+                returnValue = i ;
+                break ;
+            }
+        }
+        return ( returnValue ) ;
+    }
+
     /*
     convert string to integer
         Integer.parseInt( myString )

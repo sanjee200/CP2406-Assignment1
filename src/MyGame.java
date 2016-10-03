@@ -118,6 +118,7 @@ public class MyGame
         // Category
         int myPlayerCategoryChoice = 1;    // Default category choice of the computer player
         double myCurrentCategoryValue1 = 0.0;   // temp
+        // in arrays keeps the element as double (cleavage,ca,ev)
         int myCurrentCategoryValue2 = 1;       // temp
 
 

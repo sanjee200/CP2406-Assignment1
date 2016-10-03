@@ -106,6 +106,7 @@ public class MyCard
         System.out.println( "Top Value : " + getCategoryString( pCategoryNumber ) ) ;
     }
 
+    // double number
     public double getCategoryTopValue( int pCategoryNumber )
     {
         double myTopValue = 0.0 ;
@@ -129,10 +130,10 @@ public class MyCard
         switch (pCategoryNumber)
         {
             case 1 :
-                myString = Double.toString( hardnessDouble ) ;
+                myString = hardness ;   // Double.toString( hardnessDouble ) ;
                 break ;
             case 2 :
-                myString = Double.toString( specificGravityDouble ) ;
+                myString = specificGravity ; // Double.toString( specificGravityDouble ) ;
                 break ;
             case 3 :
                 myString = cleavage ;
@@ -159,7 +160,7 @@ public class MyCard
             case 1 :    // hardness
                 myFound = hardnessDouble > pCurrentValue ;
                 break ;
-            case 2 :
+            case 2 :    // Specific Gravity
                 myFound = specificGravityDouble > pCurrentValue ;
                 break ;
             default :
@@ -168,5 +169,24 @@ public class MyCard
         return ( myFound ) ;
     }
 
+    public boolean isCategoryHigher2( int pCategoryNumber, String pCurrentValue  )
+    {
+        boolean myFound = false ;
+        switch ( pCategoryNumber )
+        {
+            case 3 :    // Cleavage
+                myFound = true ; // hardnessDouble > pCurrentValue ;
+                break ;
+            case 4 :    // Crustal Abundance
+                myFound = true ; // specificGravityDouble > pCurrentValue ;
+                break ;
+            case 5 :    // Economic Value
+                myFound = true ; // specificGravityDouble > pCurrentValue ;
+                break ;
+            default :
+                break ;
+        }
+        return ( myFound ) ;
+    }
 
 }
