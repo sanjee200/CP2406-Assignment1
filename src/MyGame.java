@@ -175,7 +175,16 @@ public class MyGame
                 // Physical Players turn
                 if (myCurrentPlayer == 0)
                 {
-                    String myDisplayMessage1 = "Your turn, Input the card number" ;
+                    String myDisplayMessage1 = "" ;
+                    if ( myCurrentHand == 1 )
+                    {
+                        myDisplayMessage1 += "You can change the category (trump)\n" ;
+                    }
+                    else
+                    {
+                        myDisplayMessage1 += "Your turn, " ;
+                    }
+                    myDisplayMessage1 += "Input the card number" ;
                     int myPackLength = myCardsPackPlayers[myCurrentPlayer].myLength() ;
 
                     // Not the first chance to physical player
@@ -212,7 +221,7 @@ public class MyGame
                             myCardIndex = myPlayerCardChoicePhysical - 1 ;    // Array starts with 0
                         }
 
-                        // not the first and not passed
+                        // if not the first time, if cannt select a card, has to pass
                         if ( myCurrentHand > 1 && myCardIndex >= 0 )
                         {
                             double myCategoryValue = myCardsPackPlayers[ myCurrentPlayer ]
@@ -234,7 +243,7 @@ public class MyGame
                     if ( myCurrentHand == 1 )   // Your Chance to select the category
                     {
                         myPlayerCategoryChoice = MyCommon.inputInteger(
-                            "\nInput the category (trump) number\n"
+                            "\nYour turn to select the category (trump) number\n"
                                 + "1.Hardness, 2.Specific Gravity, 3.Cleavage, "
                                 + "4.Crustal Abundance, 5.Economic Value"
                             , 1, 5);
@@ -245,7 +254,7 @@ public class MyGame
                         }
                     }
 
-                    if ( myCardIndex >= 0 )
+                    if ( myCardIndex >= 0 )     // card selected
                     {
                         // if a higher category found move that card from the player to deck
                         // Display card with category details
@@ -260,7 +269,7 @@ public class MyGame
                         moveCardToDeck(myCardsPackPlayers, myCurrentPlayer, myCardIndex);
 
                     }
-                    else
+                    else                    // pass
                     {
                         // if a higher category not found move a card from the deck to the player
                         // pass
@@ -270,7 +279,6 @@ public class MyGame
                         moveCardToPlayer(myCardsPackPlayers, myCurrentPlayer);
 
                     }
-
 
                 }
                 else
@@ -283,6 +291,7 @@ public class MyGame
                     {
                         myCardIndex = 0 ;               // randomise between the length
                         myPlayerCategoryChoice = 1 ;    // randomise between 1-5
+                        System.out.println( "Player " + myCurrentPlayer + " selected Category (trump)" ) ;
                     }
                     else
                     {
@@ -299,7 +308,6 @@ public class MyGame
                     {
                         System.out.println("Current Player : " + myCurrentPlayer);
                         System.out.println("Selected card index : " + myCardIndex);
-
                     }
 
 
@@ -354,6 +362,29 @@ public class MyGame
                 }
 
                 System.out.println("------------------------\n");
+                if ( myCardsPackPlayers[ myCurrentPlayer].myIsEmpty() )
+                {
+                    String myDisplayMessage2 =
+                        myCurrentPlayer == 0 ? "You" : "Player " + myCurrentPlayer ;
+                    myDisplayMessage2 += " Won the hand" ;
+                    System.out.println(myDisplayMessage2);
+
+                    myPlayerPass[myCurrentPlayer] = 1 ;
+                    myPlayerWon[myCurrentPlayer] = 1 ;
+                    myTotalPassPlayers ++ ;
+                    myTotalWonPlayers ++ ;
+                    myCurrentHand = 0 ;     // next player, new trump
+
+                    if ( myCurrentPlayer == 0 )
+                    {
+                        int myChoice ;
+                        myChoice = MyCommon.inputInteger("Do you want to still watch the game ?",
+                            1,2) ;
+                    }
+
+
+                }
+
                 myCurrentHand ++ ;
                 myCurrentPlayer++;
             }   // Main loop where player plays their cards

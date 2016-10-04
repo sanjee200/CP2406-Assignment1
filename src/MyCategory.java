@@ -12,7 +12,7 @@ public class MyCategory
 {
 
 
-    public static boolean myCleavageHigher(String pCleavage)
+    public static boolean myCleavageHigher( String pCleavage, Double pCleavageCurrent )
     {
         String[] myCleavageArray = {
               "none"
@@ -31,16 +31,17 @@ public class MyCategory
             , "4 perfect"
             , "6 perfect"
         } ;
-        boolean myFound = false ;
+        boolean myHigher = false ;
+        int myCleavageCurrent = pCleavageCurrent.intValue() ;
 
         // boolean found = ArrayUtils.contains(myCleavageArray, pCleavage) ;
-
         int myIndex = MyCommon.findString(myCleavageArray, pCleavage) ;
-        if ( myIndex >=0 && myIndex != myCleavageArray.length )
+
+        if ( myIndex >= myCleavageCurrent ) // no need to chaeck => && ( myIndex != myCleavageArray.length )
         {
-            myFound = true ;
+            myHigher = true ;
         }
-        return myFound ;
+        return myHigher ;
     }
 
 }

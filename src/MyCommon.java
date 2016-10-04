@@ -22,7 +22,7 @@ public class MyCommon
             {
                 break ;
             }
-            if ( inputYesNo() )
+            if ( inputYesNo("") )
             {
                 break ;
             }
@@ -51,7 +51,7 @@ public class MyCommon
             }
             if ( myInput == 0 )
             {
-                if ( inputYesNo() )
+                if ( inputYesNo("") )
                 {
                     break ;
                 }
@@ -64,14 +64,18 @@ public class MyCommon
     }
 
 
-    public static boolean inputYesNo()
+    public static boolean inputYesNo(String pMessage)
     {
         char myInput ;
+        String myMessage = "" ;
         Scanner inputDevice = new Scanner( System.in ) ;
+
+        myMessage =  pMessage == "" ? "Do you want to exit" : pMessage ;
+        myMessage += " (Y,N) ==>" ;
 
         while ( true )
         {
-            System.out.print( " Do you want to exit (Y,N) ==> " ) ;
+            System.out.print( myMessage ) ;
             myInput = inputDevice.next().charAt(0) ;
 
             if ( myInput == 'Y' || myInput == 'N' ||

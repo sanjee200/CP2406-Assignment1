@@ -100,10 +100,10 @@ public class MyCard
 
     public void displayCategory( int pCategoryNumber )
     {
-        System.out.println( "File Name : " + fileName ) ;
-        System.out.println( "Title     : " + title ) ;
-        System.out.println( "Category  : " + myCategory[ pCategoryNumber ] ) ;
-        System.out.println( "Top Value : " + getCategoryString( pCategoryNumber ) ) ;
+        System.out.println( "File Name        : " + fileName ) ;
+        System.out.println( "Title            : " + title ) ;
+        System.out.println( "Category (trump) : " + myCategory[ pCategoryNumber ] ) ;
+        System.out.println( "Value            : " + getCategoryString( pCategoryNumber ) ) ;
     }
 
     // double number
@@ -130,10 +130,10 @@ public class MyCard
         switch (pCategoryNumber)
         {
             case 1 :
-                myString = hardness ;   // Double.toString( hardnessDouble ) ;
+                myString = Double.toString( hardnessDouble ) ;
                 break ;
             case 2 :
-                myString = specificGravity ; // Double.toString( specificGravityDouble ) ;
+                myString = Double.toString( specificGravityDouble ) ;
                 break ;
             case 3 :
                 myString = cleavage ;
@@ -152,7 +152,7 @@ public class MyCard
     }
 
 
-    public boolean isCategoryHigher( int pCategoryNumber, double pCurrentValue  )
+    public boolean isCategoryHigher( int pCategoryNumber, double pCurrentValue )
     {
         boolean myFound = false ;
         switch ( pCategoryNumber )
@@ -163,19 +163,8 @@ public class MyCard
             case 2 :    // Specific Gravity
                 myFound = specificGravityDouble > pCurrentValue ;
                 break ;
-            default :
-                break ;
-        }
-        return ( myFound ) ;
-    }
-
-    public boolean isCategoryHigher2( int pCategoryNumber, String pCurrentValue  )
-    {
-        boolean myFound = false ;
-        switch ( pCategoryNumber )
-        {
             case 3 :    // Cleavage
-                myFound = true ; // hardnessDouble > pCurrentValue ;
+                myFound = MyCategory.myCleavageHigher(cleavage, pCurrentValue) ;
                 break ;
             case 4 :    // Crustal Abundance
                 myFound = true ; // specificGravityDouble > pCurrentValue ;
@@ -188,5 +177,6 @@ public class MyCard
         }
         return ( myFound ) ;
     }
+
 
 }
