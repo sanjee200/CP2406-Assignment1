@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -8,6 +9,8 @@ import java.util.Scanner;
 
 public class MyCommon
 {
+
+    public static Random myRandom = new Random() ;      // Random generator
 
     public static String inputString( String pMessage )
     {
@@ -71,7 +74,7 @@ public class MyCommon
         Scanner inputDevice = new Scanner( System.in ) ;
 
         myMessage =  pMessage == "" ? "Do you want to exit" : pMessage ;
-        myMessage += " (Y,N) ==>" ;
+        myMessage += " (Y,N) ==> " ;
 
         while ( true )
         {
@@ -107,6 +110,7 @@ public class MyCommon
         return ( myRest ) ;
     }
 
+
     // Search for an integer
     public static int findInteger( int[] pArray, int pValue )
     {
@@ -124,12 +128,33 @@ public class MyCommon
 
 
     // Search for an integer
+    public static int findIntegerRest( int[] pArray, int pValue, int pFrom )
+    {
+        int returnValue = -1 ;
+        int myIndex = pFrom ;
+        for (int i=0; i< pArray.length; i++)
+        {
+            if ( pArray[ pFrom ] == pValue )
+            {
+                returnValue = i ;
+                break ;
+            }
+            pFrom ++ ;
+            if ( pFrom >= pArray.length )
+            {
+                pFrom = 0 ;
+            }
+        }
+        return ( returnValue ) ;
+    }
+
+    // Search for an integer
     public static int findString( String[] pArray, String pValue )
     {
         int returnValue = -1 ;
         for (int i=0; i< pArray.length; i++)
         {
-            if ( pArray[i].equals( pValue ) ) ;
+            if ( pArray[i].equals( pValue ) )
             {
                 returnValue = i ;
                 break ;
@@ -137,6 +162,18 @@ public class MyCommon
         }
         return ( returnValue ) ;
     }
+
+
+    // Random Number
+    public static int randomInt(int pFrom, int pUpto)
+    {
+        // double myRange  = pUpto - pFrom + 1 ;
+        // double myValue  = myRange * myRandom.nextDouble() ;
+        // int    myReturn = (int)(myValue + pFrom) ;
+        //return myReturn ;
+        return ( myRandom.nextInt((pUpto - pFrom) + 1) + pFrom ) ;
+    }
+
 
     /*
     convert string to integer

@@ -23,8 +23,12 @@ public class MyCard
     public String economicValue ;
 
     public String subTitle ;                // only for 6 trump cards
-    public double hardnessDouble ;          // String of double hardness
-    public double specificGravityDouble ;   // String of double specific gravity
+
+    public double hardnessDouble ;          // hardness double
+    public double specificGravityDouble ;   // specific gravity double
+    public double cleavageIndex ;           // cleavage index
+    public double crustalAbundanceIndex ;   // crustal abundance index
+    public double economicValueIndex ;      // economic value index
 
     public String[] myCategory = {
           ""
@@ -36,6 +40,7 @@ public class MyCard
     } ;
 
 
+    // Set variables
     public void set(String pKey, String pString )
     {
         if      ( pKey.equals( "fileName" ) )        fileName = pString ;
@@ -46,9 +51,6 @@ public class MyCard
         else if ( pKey.equals( "classification") )   classification = pString ;
         else if ( pKey.equals( "crystal_system") )   crystalSystem = pString ;
         else if ( pKey.equals( "occurrence") )       occurrence = pString ;
-        else if ( pKey.equals( "cleavage") )         cleavage = pString ;
-        else if ( pKey.equals( "crustal_abundance")) crustalAbundance = pString ;
-        else if ( pKey.equals( "economic_value") )   economicValue = pString ;
         else if ( pKey.equals( "subtitle") )         subTitle = pString ;
         else if ( pKey.equals( "hardness") )
         {
@@ -60,8 +62,25 @@ public class MyCard
             specificGravity = pString ;
             specificGravityDouble = Double.parseDouble( MyCommon.findRest( pString, "- " ) ) ;
         }
+        else if ( pKey.equals( "cleavage") )
+        {
+            cleavage = pString ;
+            cleavageIndex = MyCommon.findString( MyCategory.myCleavageArray, cleavage ) ;
+        }
+        else if ( pKey.equals( "crustal_abundance"))
+        {
+            crustalAbundance = pString ;
+            crustalAbundanceIndex = MyCommon.findString( MyCategory.myCrustalAbundanceArray, crustalAbundance ) ;
+        }
+        else if ( pKey.equals( "economic_value") )
+        {
+            economicValue = pString ;
+            economicValueIndex = MyCommon.findString( MyCategory.myEconomicValueArray, economicValue ) ;
+        }
     }
 
+
+    // display all card details
     public void displayAll()
     {
         System.out.println( "File Name :\t\t" +        fileName ) ;
@@ -80,6 +99,8 @@ public class MyCard
         System.out.println( "Sub Title  :\t\t" +       subTitle ) ;
     }
 
+
+    // display relevant card details
     public void display()
     {
         System.out.println( "File Name\t\t\t: "      + fileName ) ;
@@ -98,85 +119,43 @@ public class MyCard
         System.out.println( "---------------------" ) ;
     }
 
+
+    // display required card details
     public void displayCategory( int pCategoryNumber )
     {
         System.out.println( "File Name        : " + fileName ) ;
         System.out.println( "Title            : " + title ) ;
         System.out.println( "Category (trump) : " + myCategory[ pCategoryNumber ] ) ;
-        System.out.println( "Value            : " + getCategoryString( pCategoryNumber ) ) ;
+//        System.out.println( "Value            : " + getCategoryString( pCategoryNumber ) ) ;
+        System.out.println( "Value            : " + Double.toString ( getCategoryValue( pCategoryNumber ) ) ) ;
     }
+
 
     // double number
-    public double getCategoryTopValue( int pCategoryNumber )
+    public double getCategoryValue(int pCategoryNumber )
     {
-        double myTopValue = 0.0 ;
-        switch (pCategoryNumber)
-        {
-            case 1 :    // hardness
-                myTopValue = hardnessDouble ;
-                break ;
-            case 2 :
-                myTopValue = specificGravityDouble ;
-                break ;
-            default :
-                break ;
-        }
-        return myTopValue ;
-    }
-
-    public String getCategoryString( int pCategoryNumber )
-    {
-        String myString = "" ;
-        switch (pCategoryNumber)
-        {
-            case 1 :
-                myString = Double.toString( hardnessDouble ) ;
-                break ;
-            case 2 :
-                myString = Double.toString( specificGravityDouble ) ;
-                break ;
-            case 3 :
-                myString = cleavage ;
-                break ;
-            case 4 :
-                myString = crustalAbundance ;
-                break ;
-            case 5 :
-                myString = economicValue ;
-                break ;
-            default :
-                break ;
-        }
-
-        return myString ;
-    }
-
-
-    public boolean isCategoryHigher( int pCategoryNumber, double pCurrentValue )
-    {
-        boolean myFound = false ;
+        double myValue = 0.0 ;
         switch ( pCategoryNumber )
         {
             case 1 :    // hardness
-                myFound = hardnessDouble > pCurrentValue ;
+                myValue = hardnessDouble ;
                 break ;
             case 2 :    // Specific Gravity
-                myFound = specificGravityDouble > pCurrentValue ;
+                myValue = specificGravityDouble ;
                 break ;
             case 3 :    // Cleavage
-                myFound = MyCategory.myCleavageHigher(cleavage, pCurrentValue) ;
+                myValue = cleavageIndex ;
                 break ;
             case 4 :    // Crustal Abundance
-                myFound = true ; // specificGravityDouble > pCurrentValue ;
+                myValue = crustalAbundanceIndex ;
                 break ;
             case 5 :    // Economic Value
-                myFound = true ; // specificGravityDouble > pCurrentValue ;
+                myValue = economicValueIndex ;
                 break ;
             default :
                 break ;
         }
-        return ( myFound ) ;
+        return myValue ;
     }
-
 
 }

@@ -11,33 +11,64 @@ import java.util.Arrays;
 public class MyCategory
 {
 
+    static String[] myCleavageArray = {
+          "none"
+        , "poor/none"
+        , "1 poor"
+        , "2 poor"
+        , "1 good"
+        , "1 good 1 poor"
+        , "2 good"
+        , "3 good"
+        , "1 perfect"
+        , "1 perfect 1 good"
+        , "1 perfect 2 good"
+        , "2 perfect 2 good"
+        , "3 perfect"
+        , "4 perfect"
+        , "6 perfect"
+    } ;
 
-    public static boolean myCleavageHigher( String pCleavage, Double pCleavageCurrent )
+    static String[] myCrustalAbundanceArray = {
+          "ultratrace"
+        , "trace"
+        , "low"
+        , "moderate"
+        , "high"
+        , "very high"
+    } ;
+
+    static String[] myEconomicValueArray = {
+          "trival"
+        , "low"
+        , "moderate"
+        , "high"
+        , "very high"
+        , "I’m rich"
+    } ;
+
+    public static boolean isCategoryHigherArray( int pCategory,  String pString, Double pHighestIndex )
     {
-        String[] myCleavageArray = {
-              "none"
-            , "poor/none"
-            , "1 poor"
-            , "2 poor"
-            , "1 good"
-            , "1 good 1 poor"
-            , "2 good"
-            , "3 good"
-            , "1 perfect"
-            , "1 perfect 1 good"
-            , "1 perfect 2 good"
-            , "2 perfect 2 good"
-            , "3 perfect"
-            , "4 perfect"
-            , "6 perfect"
-        } ;
         boolean myHigher = false ;
-        int myCleavageCurrent = pCleavageCurrent.intValue() ;
+        int myHighestIndexInt, myIndex = 0 ;
+        myHighestIndexInt = pHighestIndex.intValue() ;
 
-        // boolean found = ArrayUtils.contains(myCleavageArray, pCleavage) ;
-        int myIndex = MyCommon.findString(myCleavageArray, pCleavage) ;
+        switch (pCategory)
+        {
+            case 3 :    // hardness
+                myIndex = MyCommon.findString(myCleavageArray, pString) ;
+                break ;
+            case 4 :    // Specific Gravity
+                myIndex = MyCommon.findString(myCrustalAbundanceArray, pString) ;
+                break ;
+            case 5 :    // Cleavage
+                myIndex = MyCommon.findString(myEconomicValueArray, pString) ;
+                break ;
+            default :
+                break ;
+        }
 
-        if ( myIndex >= myCleavageCurrent ) // no need to chaeck => && ( myIndex != myCleavageArray.length )
+        if ( myIndex > myHighestIndexInt ) // no need to chaeck => && ( myIndex != myCleavageArray.length )
         {
             myHigher = true ;
         }

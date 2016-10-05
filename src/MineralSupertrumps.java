@@ -4,14 +4,13 @@
  * Mineral Super Trumps - Main Program
  */
 
+
 public class MineralSupertrumps
 {
 
 
-
     public static void main( String[] args )
     {
-
 
         while ( true )
         {
@@ -45,6 +44,7 @@ public class MineralSupertrumps
 
             }
 
+
             // end
             // displayAllCardNumbers the players won in order
 
@@ -53,5 +53,4 @@ public class MineralSupertrumps
             break ;
         }
     }
-
 }

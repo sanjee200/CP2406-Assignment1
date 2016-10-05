@@ -7,13 +7,15 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Sanjeewa on 29/09/2016.
  *
- * Initialisation Methods
+ * Configuration Methods & Variables
  *
  */
+
 
 public class MyConfig
 {
@@ -25,7 +27,7 @@ public class MyConfig
 
     public  static ArrayList<Integer> myCardsPackDeck = new ArrayList<Integer>() ;  // Main Dynamic Deck
 
-    public  static final int INITIAL_DEAL= 3 ;          // Number of cards to deal initially
+    public  static final int INITIAL_DEAL= 3 ;          // 8 Number of cards to deal initially
 
 
     // Constants

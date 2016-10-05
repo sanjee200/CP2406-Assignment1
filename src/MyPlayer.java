@@ -17,11 +17,13 @@ public class MyPlayer
         this.myCardsPack.add( pCardNumber ) ;
     }
 
+
     // Remove element
     public void myRemove( int pCardIndex )
     {
         this.myCardsPack.remove( pCardIndex ) ;
     }
+
 
     // Return the number in the element
     public int myGet( int pCardIndex )
@@ -29,17 +31,20 @@ public class MyPlayer
         return ( this.myCardsPack.get( pCardIndex ) ) ;
     }
 
+
     // Return the length of the array
     public int myLength()
     {
         return ( myCardsPack.size() ) ;
     }
 
+
     // Return whether empty
     public boolean myIsEmpty()
     {
         return ( myCardsPack.isEmpty() ) ;
     }
+
 
     // Display the players card numbers (Number of the card  related to the myCardsPackMain)
     public void displayAllCardNumbers()
@@ -50,6 +55,7 @@ public class MyPlayer
         }
         System.out.println( "" ) ;
     }
+
 
     // Display details of All the cards
     public void displayAllCardDetails()
@@ -67,6 +73,7 @@ public class MyPlayer
         System.out.println("");
     }
 
+
     // Display Title, Category, Top Value of given card (pCardIndex)
     public void displayCardCategory(int pCardIndex, int pCategoryNumber )
     {
@@ -81,6 +88,7 @@ public class MyPlayer
         MyConfig.myCardsPackMain[ myCardNumberMain ].displayCategory( pCategoryNumber ) ;
     }
 
+
     public double getCategoryValue( int pCardIndex, int pCategoryNumber )
     {
         // pCardIndex  => 0 to NoOfCards-1 (Selected card)
@@ -92,27 +100,35 @@ public class MyPlayer
 
         double myValue ;
         int myCardNumberMain = myCardsPack.get( pCardIndex ) ;
-        myValue = MyConfig.myCardsPackMain [ myCardNumberMain ].getCategoryTopValue( pCategoryNumber ) ;
+        myValue = MyConfig.myCardsPackMain [ myCardNumberMain ].getCategoryValue( pCategoryNumber ) ;
         return myValue ;
     }
 
-    public int isCategoryHigher( int pCategoryNumber, double pCurrentValue )
+
+    public int isCategoryHigherAll( int pCategoryNumber, double pCurrentValue )
     {
-        int myCardIndex = 0 ;
-        boolean isFound = false ;
-        for ( int cardNumberMain : myCardsPack )
+        boolean isHigher = false ;
+        int myCardIndex ;
+        for ( myCardIndex = 0; myCardIndex < myCardsPack.size(); myCardIndex++ )
         {
-            isFound = MyConfig.myCardsPackMain[ cardNumberMain ].
-                isCategoryHigher( pCategoryNumber, pCurrentValue ) ;
-            if ( isFound )
+            isHigher = isCategoryHigherOne(
+                myCardIndex , pCategoryNumber, pCurrentValue ) ;
+            if ( isHigher )
             {
                 break ;
             }
-            myCardIndex++ ;
         }
-        myCardIndex = isFound ? myCardIndex : -1 ;
+        myCardIndex = isHigher ? myCardIndex : -1 ;
         return myCardIndex ;
     }
 
+    public boolean isCategoryHigherOne(int pCardIndex, int pCategoryNumber, double pCurrentValue )
+    {
+        boolean isHigher =
+            MyConfig.myCardsPackMain[ myCardsPack.get( pCardIndex ) ]
+            .getCategoryValue(pCategoryNumber)
+            > pCurrentValue ;
+        return isHigher ;
+    }
 
 }
