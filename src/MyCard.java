@@ -30,6 +30,11 @@ public class MyCard
     public double crustalAbundanceIndex ;   // crustal abundance index
     public double economicValueIndex ;      // economic value index
 
+    public String cleavageAndIndex ;           // cleavage index
+    public String crustalAbundanceAndIndex ;   // crustal abundance index
+    public String economicValueAndIndex ;      // economic value index
+
+
     public String[] myCategory = {
           ""
         , "Hardness"
@@ -66,16 +71,34 @@ public class MyCard
         {
             cleavage = pString ;
             cleavageIndex = MyCommon.findString( MyCategory.myCleavageArray, cleavage ) ;
+            cleavageAndIndex = getCategoryString( 3 ) ;
+            if (cleavageIndex < 0)
+            {
+                System.out.println("Cleavage not in array => " + cleavage ) ;
+                System.exit(1) ;
+            }
         }
         else if ( pKey.equals( "crustal_abundance"))
         {
             crustalAbundance = pString ;
             crustalAbundanceIndex = MyCommon.findString( MyCategory.myCrustalAbundanceArray, crustalAbundance ) ;
+            crustalAbundanceAndIndex = getCategoryString( 4 ) ;
+            if (crustalAbundanceIndex < 0)
+            {
+                System.out.println("Crustal Abundance not in array => " + crustalAbundance ) ;
+                System.exit(1) ;
+            }
         }
         else if ( pKey.equals( "economic_value") )
         {
             economicValue = pString ;
             economicValueIndex = MyCommon.findString( MyCategory.myEconomicValueArray, economicValue ) ;
+            economicValueAndIndex = getCategoryString( 5 ) ;
+            if (economicValueIndex < 0)
+            {
+                System.out.println("Economic Value not in array => " + economicValue ) ;
+                System.exit(1) ;
+            }
         }
     }
 
@@ -108,9 +131,9 @@ public class MyCard
         System.out.println( "Title\t\t\t\t: "        + title ) ;
         System.out.println( "Hardness \t\t\t: "      + hardness ) ;
         System.out.println( "Specific Gravity\t: "   + specificGravity ) ;
-        System.out.println( "Cleavage\t\t\t: "       + cleavage ) ;
-        System.out.println( "Crustal Abundance\t: "  + crustalAbundance ) ;
-        System.out.println( "Economic Value\t\t: "   + economicValue ) ;
+        System.out.println( "Cleavage\t\t\t: "       + cleavageAndIndex ) ;
+        System.out.println( "Crustal Abundance\t: "  + crustalAbundanceAndIndex ) ;
+        System.out.println( "Economic Value\t\t: "   + economicValueAndIndex ) ;
         System.out.println( "Card Type\t\t\t: "      + cardType ) ;
         if ( subTitle != null)
         {
@@ -123,11 +146,20 @@ public class MyCard
     // display required card details
     public void displayCategory( int pCategoryNumber )
     {
+        String myValueDisplay ;
+        if ( pCategoryNumber <=2 )
+        {
+            myValueDisplay = Double.toString ( getCategoryValue( pCategoryNumber ) ) ;
+        }
+        else
+        {
+            myValueDisplay = getCategoryString(pCategoryNumber) ;
+        }
+
         System.out.println( "File Name        : " + fileName ) ;
         System.out.println( "Title            : " + title ) ;
         System.out.println( "Category (trump) : " + myCategory[ pCategoryNumber ] ) ;
-//        System.out.println( "Value            : " + getCategoryString( pCategoryNumber ) ) ;
-        System.out.println( "Value            : " + Double.toString ( getCategoryValue( pCategoryNumber ) ) ) ;
+        System.out.println( "Value            : " + myValueDisplay ) ;
     }
 
 
@@ -156,6 +188,30 @@ public class MyCard
                 break ;
         }
         return myValue ;
+    }
+
+
+    public String getCategoryString( int pCategoryNumber )
+    {
+        String myString = "" ;
+        Double myValue = getCategoryValue( pCategoryNumber ) ;
+
+        switch (pCategoryNumber)
+        {
+            case 3 :    // Cleavage
+                myString = cleavage ;
+                break ;
+            case 4 :    // Crustal Abundance
+                myString = crustalAbundance ;
+                break ;
+            case 5 :    // Economic Value
+                myString = economicValue ;
+                break ;
+            default :
+                break ;
+        }
+        myString += " (" + ( myValue.intValue() + 1 ) + ")" ;
+        return myString ;
     }
 
 }

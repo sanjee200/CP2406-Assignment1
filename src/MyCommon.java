@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class MyCommon
 {
 
-    public static Random myRandom = new Random() ;      // Random generator
 
     public static String inputString( String pMessage )
     {
@@ -41,27 +40,41 @@ public class MyCommon
 
         while ( true )
         {
-            System.out.print( pMessage
-                + "\n( Integer between "
-                + pMinimum + " and " + pMaximum
-                + ", 0 to exit ) ==> "
-            ) ;
-            myInput = inputDevice.nextInt() ;
+            try {
 
-            if ( myInput >= pMinimum && myInput <= pMaximum )
-            {
-                break ;
-            }
-            if ( myInput == 0 )
-            {
-                if ( inputYesNo("") )
+                System.out.print(pMessage
+                    + "\n( Integer between "
+                    + pMinimum + " and " + pMaximum
+                    + ", 0 to exit ) ==> "
+                );
+
+                myInput = inputDevice.nextInt() ;
+                if ( myInput >= pMinimum && myInput <= pMaximum )
                 {
                     break ;
                 }
+                if (myInput == 0)
+                {
+                    if ( inputYesNo("") )
+                    {
+                        break ;
+                    }
+                }
+
+                System.out.println(" * has to be between "
+                    + pMinimum + " and " + pMaximum);
             }
 
-            System.out.println( " has to be an integer between " + pMinimum
-                + " and " + pMaximum ) ;
+            catch (Exception e)
+            {
+                System.out.println(" * not an integer value");
+                inputDevice.nextLine() ;
+            }
+            finally
+            {
+                // nothing
+            }
+
         }
         return myInput ;
     }
@@ -165,7 +178,7 @@ public class MyCommon
 
 
     // Random Number
-    public static int randomInt(int pFrom, int pUpto)
+    public static int randomInt(Random myRandom, int pFrom, int pUpto)
     {
         // double myRange  = pUpto - pFrom + 1 ;
         // double myValue  = myRange * myRandom.nextDouble() ;

@@ -7,6 +7,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -178,4 +179,29 @@ public class MyConfig
             myCardsPackDeck.add(i+1);
         }
     }
+
+    public static boolean shuffleCardPackDeck(Random myRandom)
+    {
+        int myShuffle, myRandomIndex ;
+        myShuffle = MyCommon.inputInteger( "How many times you want to shuffle the deck", 1, 50 ) ;
+
+        if ( myShuffle > 0 )
+        {
+            // if 1 no shuffle
+            for (int i=1; i <= myShuffle; i++)
+            {
+                myRandomIndex = MyCommon.randomInt(myRandom, 0, NUMBER_OF_CARDS - 2 ) ;
+
+                for (int j=0 ; j<=myRandomIndex; j++)
+                {
+                    myCardsPackDeck.add( myCardsPackDeck.get( 0 ) ) ;   // add first card to bottom
+                    myCardsPackDeck.remove(0) ;                         // remove first card
+                }
+            }
+
+        }
+        return ( myShuffle > 0 ) ;
+    }
+
+
 }

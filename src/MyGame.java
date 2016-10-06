@@ -1,6 +1,7 @@
 import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Created by Sanjeewa on 26/09/2016.
@@ -13,11 +14,13 @@ import java.util.Arrays;
 public class MyGame
 {
 
-    protected static boolean myDisplayDetails1 = false ;   // Display additional information
-    protected static int myDealer = 0 ;
+    private static boolean myDisplayDetails1 = false ;   // Display additional information
+    private static int myDealer = 0 ;
          // Select the player to deal first
 
-    // Create all players card pack
+    private static Random myRandom = new Random() ;      // Random generator, only once
+
+    // Create all the players card pack
     // 0.Physical 1-5. Computer
     protected static MyPlayer[] myCardsPackPlayers =
         new MyPlayer[ MyConfig.myNumberOfPlayers + 1 ] ;
@@ -35,6 +38,7 @@ public class MyGame
                 break ;
             }
 
+            // Start Playing the cards
             if ( !(myExitGame = gameStartPlay()) )
             {
                 break ;
@@ -50,19 +54,21 @@ public class MyGame
     // Initialise and deal the cards to players
     public static boolean gameInitialise()
     {
-        boolean isNoErrors = true;
+        boolean isNoErrors = false ;
+
+        // Initialise the dynamic card pack - myCardsPackDeck
+        MyConfig.initialiseCardPackDeck();
 
         while ( true )
         {
-
-            // Initialise the dynamic card pack - myCardsPackDeck
-            MyConfig.initialiseCardPackDeck();
-
             // Shuffle the cards
+            if ( !MyConfig.shuffleCardPackDeck( myRandom ) )
+            {
+                break ;
+            }
 
             // Get the dealer -- generate random number from 0 to number of players
-            myDealer = 0;
-            //myDealer = MyCommon.randomInt( 0, MyConfig.myNumberOfPlayers - 1 ) ;
+            myDealer = MyCommon.randomInt(myRandom, 0, MyConfig.myNumberOfPlayers - 1 ) ;
 
 
             // Create each players card pack
@@ -75,12 +81,17 @@ public class MyGame
             // Move the top card from deck (myCardPackDeck) to each player (myCardsPackPlayers)
             for ( int i = 0; i < MyConfig.INITIAL_DEAL; i++ )
             {
-                int j = myDealer ;     // start from the randamize number
-                while ( j <= MyConfig.myNumberOfPlayers )
+                int myPlayer = myDealer ;     // start from the randomise number
+                // 0.Physical Player 1>.Computer Players
+                for (int j=0; j <= MyConfig.myNumberOfPlayers; j++ )
                 {
-                    myCardsPackPlayers[j].myAdd(MyConfig.myCardsPackDeck.get(0)) ;
+                    myCardsPackPlayers[myPlayer].myAdd(MyConfig.myCardsPackDeck.get(0)) ;
                     MyConfig.myCardsPackDeck.remove(0) ;
-                    j++ ;
+                    myPlayer ++ ;
+                    if (myPlayer > MyConfig.myNumberOfPlayers)
+                    {
+                        myPlayer = 0 ;
+                    }
                 }
             }
 
@@ -96,6 +107,7 @@ public class MyGame
                 }
                 System.out.println("") ;
             }
+            isNoErrors = true ;
             break ;
         }
         return isNoErrors ;
@@ -233,6 +245,7 @@ public class MyGame
                         break ;
                     }
 
+                    // first card (Select a card and a trump)
                     if ( myCurrentHand == 1 )   // Your Chance to select the category
                     {
                         myPlayerCategoryChoice = MyCommon.inputInteger(
@@ -247,6 +260,7 @@ public class MyGame
                         }
                     }
 
+                    // play or pass
                     if ( myCardIndex >= 0 )     // card selected
                     {
                         // if a higher category found move that card from the player to deck
@@ -278,19 +292,15 @@ public class MyGame
                     // Computer players
                     // sort the players card by the category
 
-                    // Select a card and a category
+                    // first card (Select a card and a trump) or answer to trump
                     if ( myCurrentHand == 1 )
                     {
-                        myCardIndex = 0 ;               // randomise between the length
-                        myPlayerCategoryChoice = 1 ;    // randomise between 1-5
-
-/*
-                        // randomise between 0 to (length-1) of the hand
+                        // Card Index - randomise between 0 to (length-1) of the hand
                         myCardIndex = MyCommon.randomInt(
-                            0, myCardsPackPlayers[ myCurrentPlayer ].myLength()-1 ) ;
-                        // randomise between 1-5
-                        myPlayerCategoryChoice = MyCommon.randomInt( 1, 5) ;
-*/
+                            myRandom, 0, myCardsPackPlayers[ myCurrentPlayer ].myLength()-1 ) ;
+                        // category (trump) - randomise between 1-5
+                        myPlayerCategoryChoice = MyCommon.randomInt(myRandom, 1, 5) ;
+
                         System.out.println( "Player " + myCurrentPlayer + " selected a new category (trump)" ) ;
                     }
                     else
@@ -303,12 +313,7 @@ public class MyGame
 
                     }
 
-                    if (myDisplayDetails1)
-                    {
-                        System.out.println( "Current Player : " + myCurrentPlayer ) ;
-                        System.out.println( "Selected card index : " + myCardIndex ) ;
-                    }
-
+                    // play or pass
                     if ( myCardIndex >= 0 )
                     {
                         // if a higher category found move that card from the player to deck

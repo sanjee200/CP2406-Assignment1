@@ -14,28 +14,24 @@ public class MineralSupertrumps
 
         while ( true )
         {
-/*
+
             // Display the main menu
             if ( !MyConfig.DisplayMainMenu() )
             {
                 break ;
             }
-*/
 
-/*
             // Get Initial Information
             if ( !MyConfig.GetInitialInformation() )
             {
                 break ;
             }
-*/
 
             // Initialise the Main Card Pack from XML file
             if ( !MyConfig.readCardsDetails( false ) )
             {
                 break ;
             }
-
 
             // Start a new game
             if ( !MyGame.gameStart() )
@@ -44,10 +40,7 @@ public class MineralSupertrumps
 
             }
 
-
             // end
-            // displayAllCardNumbers the players won in order
-
             System.out.println(MyConfig.myName);
             System.out.println( "-------------Done (With No Errors)------------------" ) ;
             break ;
