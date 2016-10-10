@@ -1,16 +1,18 @@
-import java.util.Random;
-import java.util.Scanner;
-
 /**
  * Created by Sanjeewa on 26/09/2016.
  *
  * All the common methods used by all the classes
  */
 
+import java.util.Random;
+import java.util.Scanner;
+
+
 public class MyCommon
 {
 
 
+    // User input string
     public static String inputString( String pMessage )
     {
         String myInput ;
@@ -33,6 +35,7 @@ public class MyCommon
     }
 
 
+    // User input integer
     public static int inputInteger( String pMessage, int pMinimum, int pMaximum )
     {
         int myInput ;
@@ -59,6 +62,10 @@ public class MyCommon
                     {
                         break ;
                     }
+                    else
+                    {
+                        continue ;
+                    }
                 }
 
                 System.out.println(" * has to be between "
@@ -80,6 +87,7 @@ public class MyCommon
     }
 
 
+    // User input Yes or No
     public static boolean inputYesNo(String pMessage)
     {
         char myInput ;
@@ -105,7 +113,7 @@ public class MyCommon
     }
 
 
-    // Search for a character and returns the rest
+    // Search for a character and returns the rest of the string
     public static String findRest( String pString, String pFindChar )
     {
         int myFound = -1 ;
@@ -124,7 +132,7 @@ public class MyCommon
     }
 
 
-    // Search for an integer
+    // Search for an integer in an array
     public static int findInteger( int[] pArray, int pValue )
     {
         int returnValue = -1 ;
@@ -140,28 +148,7 @@ public class MyCommon
     }
 
 
-    // Search for an integer
-    public static int findIntegerRest( int[] pArray, int pValue, int pFrom )
-    {
-        int returnValue = -1 ;
-        int myIndex = pFrom ;
-        for (int i=0; i< pArray.length; i++)
-        {
-            if ( pArray[ pFrom ] == pValue )
-            {
-                returnValue = i ;
-                break ;
-            }
-            pFrom ++ ;
-            if ( pFrom >= pArray.length )
-            {
-                pFrom = 0 ;
-            }
-        }
-        return ( returnValue ) ;
-    }
-
-    // Search for an integer
+    // Search for an string in an array
     public static int findString( String[] pArray, String pValue )
     {
         int returnValue = -1 ;
@@ -177,7 +164,7 @@ public class MyCommon
     }
 
 
-    // Random Number
+    // Generates a random number between a given range
     public static int randomInt(Random myRandom, int pFrom, int pUpto)
     {
         // double myRange  = pUpto - pFrom + 1 ;
@@ -187,18 +174,5 @@ public class MyCommon
         return ( myRandom.nextInt((pUpto - pFrom) + 1) + pFrom ) ;
     }
 
-
-    /*
-    convert string to integer
-        Integer.parseInt( myString )
-        Integer.valueOf( myString )
-
-    convert string to double
-        Double.parseDouble(numberAsString);
-        Double.valueOf(numberAsString);
-        Double doubleObject = new Double(numberAsString);
-        DecimalFormat decimalFormat = new DecimalFormat("#");
-
-     */
 
 }

@@ -2,6 +2,7 @@
  * Created by Sanjeewa on 26/09/2016.
  *
  * Mineral Super Trumps - Main Program
+ *
  */
 
 
@@ -20,12 +21,14 @@ public class MineralSupertrumps
             {
                 break ;
             }
+            System.out.println("");
 
             // Get Initial Information
             if ( !MyConfig.GetInitialInformation() )
             {
                 break ;
             }
+            System.out.println("");
 
             // Initialise the Main Card Pack from XML file
             if ( !MyConfig.readCardsDetails( false ) )

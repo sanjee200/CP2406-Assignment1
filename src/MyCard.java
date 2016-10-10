@@ -8,6 +8,7 @@
 public class MyCard
 {
 
+    public int    cardNumber ;
     public String fileName ;
     public String imageName ;
     public String cardType ;
@@ -46,8 +47,10 @@ public class MyCard
 
 
     // Set variables
-    public void set(String pKey, String pString )
+    public void set(int pCardNumber, String pKey, String pString )
     {
+        cardNumber = pCardNumber ;
+
         if      ( pKey.equals( "fileName" ) )        fileName = pString ;
         else if ( pKey.equals( "imageName") )        imageName = pString ;
         else if ( pKey.equals( "card_type") )        cardType = pString ;
@@ -126,8 +129,6 @@ public class MyCard
     // display relevant card details
     public void display()
     {
-        System.out.println( "File Name\t\t\t: "      + fileName ) ;
-        System.out.println( "Card Type\t\t\t: "      + cardType ) ;
         System.out.println( "Title\t\t\t\t: "        + title ) ;
         System.out.println( "Hardness \t\t\t: "      + hardness ) ;
         System.out.println( "Specific Gravity\t: "   + specificGravity ) ;
@@ -137,14 +138,15 @@ public class MyCard
         System.out.println( "Card Type\t\t\t: "      + cardType ) ;
         if ( subTitle != null)
         {
-            System.out.println( "Sub Title \t\t\t: "     + subTitle ) ;
+            System.out.println( "Sub Title \t\t\t: " + subTitle ) ;
         }
-        System.out.println( "---------------------" ) ;
+        System.out.println( "Card Number\t\t\t: "    + cardNumber ) ;
+        System.out.println( "---------------" ) ;
     }
 
 
     // display required card details
-    public void displayCategory( int pCategoryNumber )
+    public void displayCategory( int pCategoryNumber, int pNumberOfCards )
     {
         String myValueDisplay ;
         if ( pCategoryNumber <=2 )
@@ -156,10 +158,12 @@ public class MyCard
             myValueDisplay = getCategoryString(pCategoryNumber) ;
         }
 
-        System.out.println( "File Name        : " + fileName ) ;
         System.out.println( "Title            : " + title ) ;
         System.out.println( "Category (trump) : " + myCategory[ pCategoryNumber ] ) ;
         System.out.println( "Value            : " + myValueDisplay ) ;
+        System.out.println( "Card number      : " + cardNumber ) ;
+        System.out.println( "has "
+            + ( pNumberOfCards == 0 ? "No" : pNumberOfCards ) + " card(s) in hand now" ) ;
     }
 
 
@@ -210,7 +214,7 @@ public class MyCard
             default :
                 break ;
         }
-        myString += " (" + ( myValue.intValue() + 1 ) + ")" ;
+        myString += " (" + ( myValue.intValue() ) + ")" ;
         return myString ;
     }
 

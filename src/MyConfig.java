@@ -1,3 +1,10 @@
+/**
+ * Created by Sanjeewa on 29/09/2016.
+ *
+ * Configuration Methods & Variables
+ *
+ */
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -7,40 +14,32 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-
-/**
- * Created by Sanjeewa on 29/09/2016.
- *
- * Configuration Methods & Variables
- *
- */
 
 
 public class MyConfig
 {
     public  static String myName = "" ;                 // Name of the physical player
-    public  static int    myNumberOfPlayers = 3 ;       // Number of computer players
+    public  static int    myNumberOfPlayers = 2 ;       // Number of computer players
 
-    public  static final int NUMBER_OF_CARDS = 60 ;     // Number of cards in the pack
+    public  static final int NUMBER_OF_CARDS = 54 ;     // Number of cards in the pack
     public  static MyCard[] myCardsPackMain = new MyCard[ NUMBER_OF_CARDS + 1  ] ;  // Main Card Pack
+    public  static ArrayList<Integer> myCardsPackDeck = new ArrayList<Integer>() ;        // Main Dynamic Deck
 
-    public  static ArrayList<Integer> myCardsPackDeck = new ArrayList<Integer>() ;  // Main Dynamic Deck
-
-    public  static final int INITIAL_DEAL= 3 ;          // 8 Number of cards to deal initially
-
+    public  static final int INITIAL_DEAL = 8 ;         // 8 Number of cards to deal initially
 
     // Constants
     private static final int    NUMBER_OF_PLAYERS_MINIMUM = 3 ;
     private static final int    NUMBER_OF_PLAYERS_MAXIMUM = 5 ;
-    private static final String XML_FILE = "MstCards_151021.xml" ; //"MstCards_151021.xml" ;
+    private static final String XML_FILE = "MstCards_151021.xml" ;
 
 
+    // Display Main Menu
     public static boolean DisplayMainMenu()
     {
         int myMenuChoice ;
         System.out.println( "Welcome to Mineral Supertrumps" ) ;
+        System.out.println( "" ) ;
         System.out.println( "1. Play a new game" ) ;
         System.out.println( "0. Exit" ) ;
 
@@ -49,6 +48,7 @@ public class MyConfig
     }
 
 
+    // Get initial information from the user
     public static boolean GetInitialInformation()
     {
         boolean isContinue = false ;
@@ -61,12 +61,13 @@ public class MyConfig
                 break ;
             }
 
+            System.out.println("");
             myNumberOfPlayers = MyCommon.inputInteger( myName
                     + ", with how many players would you like to play the game "
                 , NUMBER_OF_PLAYERS_MINIMUM
                 , NUMBER_OF_PLAYERS_MAXIMUM
             ) ;
-            isContinue = true ;
+            isContinue = myNumberOfPlayers > 0 ;
             break ;
         }
         return ( isContinue ) ;
@@ -91,18 +92,18 @@ public class MyConfig
             //System.out.println("Root : " + myDoc.getDocumentElement().getNodeName());
 
 
-            for (int i=0; i < NUMBER_OF_CARDS; i++ )
+            for (int myCardNumber=0; myCardNumber < NUMBER_OF_CARDS; myCardNumber++ )
             {
-                Node myNode = nodeList.item( i ) ;
+                Node myNode = nodeList.item( myCardNumber ) ;
                 // " Element : " + myNode.getNodeName()
                 if ( pDisplay )
                 {
-                    System.out.println( i+1 );
+                    System.out.println( myCardNumber+1 );
                 }
 
                 if ( myNode.getNodeType() == Node.ELEMENT_NODE )
                 {
-                    myCardsPackMain[ i+1 ] = new MyCard() ;
+                    myCardsPackMain[ myCardNumber+1 ] = new MyCard() ;
                     Element myElement = ( Element ) myNode ;
 
                     //System.out.println("Staff id : " + myElement.getAttribute("id"));
@@ -143,7 +144,7 @@ public class MyConfig
                             System.out.println("");
                         }
 
-                        myCardsPackMain[i+1].set( myKey, myString ) ;
+                        myCardsPackMain[myCardNumber+1].set( myCardNumber+1, myKey, myString ) ;
                         j++ ;
                     }
                     if ( pDisplay )
@@ -172,6 +173,7 @@ public class MyConfig
     }
 
 
+    // Initialise the card pack with the card numbers
     public static void initialiseCardPackDeck()
     {
         for (int i=0; i<NUMBER_OF_CARDS; i++)
@@ -180,6 +182,8 @@ public class MyConfig
         }
     }
 
+
+    // Shuffle the card pack
     public static boolean shuffleCardPackDeck(Random myRandom)
     {
         int myShuffle, myRandomIndex ;

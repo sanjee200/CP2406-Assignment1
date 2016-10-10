@@ -1,11 +1,12 @@
-import java.util.ArrayList;
-
 /**
  * Created by Sanjeewa on 29/09/2016.
  *
  * Player related methods
  *      myCardsPackPlayers[]
  */
+
+import java.util.ArrayList;
+
 
 public class MyPlayer
 {
@@ -85,7 +86,7 @@ public class MyPlayer
         //    [1-60] => has all the details of 60 cards
 
         int myCardNumberMain = myCardsPack.get( pCardIndex ) ;
-        MyConfig.myCardsPackMain[ myCardNumberMain ].displayCategory( pCategoryNumber ) ;
+        MyConfig.myCardsPackMain[ myCardNumberMain ].displayCategory( pCategoryNumber, myCardsPack.size()-1 ) ;
     }
 
 

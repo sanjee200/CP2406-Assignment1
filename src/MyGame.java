@@ -1,8 +1,3 @@
-import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
-
-import java.util.Arrays;
-import java.util.Random;
-
 /**
  * Created by Sanjeewa on 26/09/2016.
  *
@@ -10,14 +5,15 @@ import java.util.Random;
  *
  */
 
+import java.util.Arrays;
+import java.util.Random;
+
 
 public class MyGame
 {
 
     private static boolean myDisplayDetails1 = false ;   // Display additional information
-    private static int myDealer = 0 ;
-         // Select the player to deal first
-
+    private static int myDealer = 0 ;                    // Select the player to deal first
     private static Random myRandom = new Random() ;      // Random generator, only once
 
     // Create all the players card pack
@@ -107,6 +103,8 @@ public class MyGame
                 }
                 System.out.println("") ;
             }
+
+            System.out.println("\n\n");
             isNoErrors = true ;
             break ;
         }
@@ -118,24 +116,24 @@ public class MyGame
     {
 
         // Start the game
-        int myExitGameStatus = 0 ;        // If greater than 0 Exit game
+        int myExitGameStatus = 0 ;              // If greater than 0 Exit game
 
         // Player
-        int myCurrentPlayer = 0 ;    // start from the randomise number
+        int myCurrentPlayer = 0 ;               // start from the randomise number
         int myPlayerCardChoicePhysical = 1 ;    // Physical player selects the card
         int myPlayerCardChoiceComputer = 1 ;    // Computer player selects the card
         int myCardIndex = 0 ;                   // User selected card from myCardsPackPlayers[myCurrentPlayer]
-        int myCardNumber ;                  // Actual Card Number
+        int myCardNumber ;                      // Actual Card Number
 
-        int[] myPlayerWon = new int[ MyConfig.myNumberOfPlayers + 1 ] ;   // 1.Still playing 0.Won
-        int[] myPlayerPass = new int[ MyConfig.myNumberOfPlayers + 1 ] ;   // 1.Can play 0.Pass
-        Arrays.fill( myPlayerWon, 0 ) ;  // 1.Won  0.Playing
-        int myTotalWonPlayers = 0 ;           // Total number of won players
-        int myTotalPassPlayers ;      // Total number of Active players (not passed)
-        int myCurrentHand = 1 ;      // Current hand
+        int[] myPlayerWon = new int[ MyConfig.myNumberOfPlayers + 1 ] ;     // 1.Still playing 0.Won
+        int[] myPlayerPass = new int[ MyConfig.myNumberOfPlayers + 1 ] ;    // 1.Can play 0.Pass
+        Arrays.fill( myPlayerWon, 0 ) ;         // 1.Won  0.Playing
+        int myTotalWonPlayers = 0 ;             // Total number of won players
+        int myTotalPassPlayers ;                // Total number of Active players (not passed)
+        int myCurrentHand = 1 ;                 // Current hand
 
         // Category
-        int myPlayerCategoryChoice = 1 ;    // Default category choice of the computer player
+        int myPlayerCategoryChoice = 1 ;        // Default category choice of the computer player
         double myHighestCategoryValue = 0.0 ;   // Highest value in the selected category ( double, array element )
 
         // Main loop where other than won players play their cards
@@ -156,8 +154,8 @@ public class MyGame
             // Activate all the players, who has not won
             // 1.Pass 0.Playing
             System.arraycopy( myPlayerWon, 0, myPlayerPass, 0, myPlayerPass.length ) ;
-            myTotalPassPlayers = myTotalWonPlayers ;      // Total number of Active players (not passed)
-            myCurrentHand = 1 ;      // The first player to play the card, can hange the trump
+            myTotalPassPlayers = myTotalWonPlayers ;    // Total number of Active players (not passed)
+            myCurrentHand = 1 ;     // The first player to play the card, can hange the trump
 
 
             // Loop where only active players play their cards
@@ -179,13 +177,17 @@ public class MyGame
                 // Physical Players turn
                 if ( myCurrentPlayer == 0 )
                 {
-                    String myDisplayMessage1 = "" ;
+                    String myDisplayMessage1 = MyConfig.myName + ", " ;
                     if ( myCurrentHand == 1 )
                     {
                         myDisplayMessage1 += "You can change the category (trump)\n" ;
                     }
                     else
                     {
+                        myDisplayMessage1 += "Current trump '"
+                            + MyConfig.myCardsPackMain[0].myCategory[ myPlayerCategoryChoice ] + "' ( "
+                            + myHighestCategoryValue
+                            + " )\n" ;
                         myDisplayMessage1 += "Your turn, " ;
                     }
                     myDisplayMessage1 += "Input the card number" ;
@@ -200,8 +202,7 @@ public class MyGame
                     }
 
                     // Display physical players cards
-                    System.out.println( "Your Card Details" ) ;
-                    System.out.println( "~~~~~~~~~~~~~~~~~" ) ;
+                    System.out.println( MyConfig.myName + ", your card details" ) ;
                     System.out.println( "" ) ;
                     myCardsPackPlayers[ myCurrentPlayer ].displayAllCardDetails() ;
 
@@ -228,9 +229,6 @@ public class MyGame
                         // if not the first time, if cannt select a card, has to pass
                         if ( myCurrentHand > 1 && myCardIndex >= 0 )
                         {
-                            //double myCategoryValue = myCardsPackPlayers[ myCurrentPlayer ]
-                            //    .getCategoryValue( myCardIndex, myPlayerCategoryChoice ) ;
-                            // if ( myCategoryValue <= myHighestCategoryValue )
                             if ( !myCardsPackPlayers[ myCurrentPlayer ].isCategoryHigherOne(
                                 myCardIndex, myPlayerCategoryChoice, myHighestCategoryValue ))
                             {
@@ -250,8 +248,8 @@ public class MyGame
                     {
                         myPlayerCategoryChoice = MyCommon.inputInteger(
                             "\nYour turn to select the category (trump) number\n"
-                                + "1.Hardness, 2.Specific Gravity, 3.Cleavage, "
-                                + "4.Crustal Abundance, 5.Economic Value"
+                            + "1.Hardness, 2.Specific Gravity, 3.Cleavage, "
+                            + "4.Crustal Abundance, 5.Economic Value"
                             , 1, 5 ) ;
                         if ( myPlayerCategoryChoice == 0 )
                         {
@@ -270,8 +268,7 @@ public class MyGame
                         myCardsPackPlayers[ myCurrentPlayer ]
                             .displayCardCategory( myCardIndex, myPlayerCategoryChoice ) ;
                         // Value of the selected category
-                        myHighestCategoryValue =
-                            myCardsPackPlayers[ myCurrentPlayer ]
+                        myHighestCategoryValue = myCardsPackPlayers[ myCurrentPlayer ]
                             .getCategoryValue( myCardIndex, myPlayerCategoryChoice ) ;
 
                         // Move the card from player (myCardsPackPlayers) to the deck (myCardPackDeck)
@@ -285,6 +282,8 @@ public class MyGame
                         myPlayerPass[myCurrentPlayer] = 1 ;
                         myTotalPassPlayers++ ;
                         moveCardToPlayer( myCardsPackPlayers, myCurrentPlayer ) ;
+                        System.out.println( "has "
+                            + myCardsPackPlayers[ myCurrentPlayer ].myCardsPack.size() + " card(s) in hand now" );
                     }
                 }
                 else
@@ -345,6 +344,8 @@ public class MyGame
                         myPlayerPass[ myCurrentPlayer ] = 1 ;
                         myTotalPassPlayers++ ;
                         moveCardToPlayer( myCardsPackPlayers, myCurrentPlayer ) ;
+                        System.out.println( "has "
+                            + myCardsPackPlayers[ myCurrentPlayer ].myCardsPack.size() + " card(s) in hand now" );
                     }
 
                 }   // 0.User 1-5.Players
@@ -375,6 +376,7 @@ public class MyGame
                     System.out.println( "--------------------------------" ) ;
                     System.out.println( myDisplayMessage2 ) ;
                     System.out.println( "--------------------------------" ) ;
+                    System.out.println( "" ) ;
 
                     myPlayerPass[ myCurrentPlayer ] = 1 ;
                     myPlayerWon[ myCurrentPlayer ] = 1 ;
@@ -384,11 +386,12 @@ public class MyGame
 
                     if ( myCurrentPlayer == 0 )
                     {
-                        if ( !(MyCommon.inputYesNo( "Do you want to still watch the game ?" ) ) )
+                        if ( !(MyCommon.inputYesNo( "Do you want to still watch the game played by computer players ?" ) ) )
                         {
                             myExitGameStatus = 3 ;
                             break ;
                         }
+                        System.out.println("\n");
                     }
                 }
 
@@ -409,17 +412,15 @@ public class MyGame
                 break ;
             }
 
-
-            System.out.println( "--------------------------------" ) ;
-            System.out.println( " Number of Players Won " + myTotalWonPlayers ) ;
-            System.out.println( "--------------------------------" ) ;
-
         }   // Main loop for players not yet won
 
         if ( myTotalWonPlayers == MyConfig.myNumberOfPlayers )
         {
             System.out.println( "--------------------------------------------" ) ;
-            System.out.println( " All the computer players have won the game " ) ;
+            System.out.println(
+                (myPlayerWon[0] == 0 ?
+                      MyConfig.myName + ", you have lost the game"
+                    : "Player " + MyCommon.findInteger( myPlayerWon, 0 ) + " has lost the game " )) ;
             System.out.println( "--------------------------------------------" ) ;
         }
 
